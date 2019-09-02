@@ -1,0 +1,144 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: 'node-api-rest'
+  description: 'API Rest created with Express'
+host: localhost
+basePath: '/api'
+schemes:
+  - https
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /plates:
+    get:
+      tags:
+        - Plates
+      summary: "Get all plates"
+      responses:
+        200:
+          $ref: '#/responses/get_all_plates'
+    post:
+      tags:
+        - Plates
+      summary: Save one plate by licence number
+      responses:
+        200:
+          $ref: '#/responses/save_one_plate'
+  /plates/{id}:
+    get:
+      tags:
+        - Plates
+      summary: Get one plate by licence number
+      parameters:
+        - $ref: '#/parameters/id'
+      responses:
+        200:
+          $ref: '#/responses/get_one_plate'
+    delete:
+      tags:
+        - Plates
+      summary: Delete one plate by licence number
+      parameters:
+        - $ref: '#/parameters/id'
+      responses:
+        200:
+          $ref: '#/responses/delete_one_plate'
+    put:
+      tags:
+        - Plates
+      summary: Update one plate by licence number
+      parameters:
+        - $ref: '#/parameters/id'
+      responses:
+        200:
+          $ref: '#/responses/update_one_plate'
+parameters:
+  id:
+    name: id
+    in: path
+    type: string
+    description: Plate identification
+    required: true
+responses:
+  not_found:
+    description: Not Found
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Not Found
+  update_one_plate:
+    description: OK
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Updated successfully
+  save_one_plate:
+    description: OK
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Created successfully
+  delete_one_plate:
+    description: OK
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Deleted successfully
+  get_one_plate:
+    description: OK
+    schema:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        licence:
+          type: string
+        contact:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              phone:
+                type: string
+              email:
+                type: string
+                format: email
+  get_all_plates:
+    description: OK
+    schema:
+      type: array
+      items:
+        type: object
+        properties:
+          date:
+            type: string
+            format: date
+          licence:
+            type: string
+          contact:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                phone:
+                  type: string
+                email:
+                  type: string
+                  format: email
